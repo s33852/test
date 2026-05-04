@@ -1,0 +1,41 @@
+# TODO: rename this file to match your project name
+# TODO: update the routes below to match your exam endpoints
+# TODO: change the port number — open Properties/launchSettings.json and find "applicationUrl"
+#       use whatever port is there, e.g. "http://localhost:5041" → change 5000 to 5041
+
+@MyApp_HostAddress = http://localhost:5000
+
+### GET — happy path (expect 200)
+GET {{MyApp_HostAddress}}/api/samples/1/details
+Accept: application/json
+
+### GET — unknown id (expect 404)
+GET {{MyApp_HostAddress}}/api/samples/9999/details
+Accept: application/json
+
+### POST — happy path (expect 201)
+POST {{MyApp_HostAddress}}/api/samples/1/items
+Content-Type: application/json
+
+{
+  "id": 1001,
+  "date": "2025-05-05",
+  "items": [
+    { "name": "ItemA", "price": 2.20 },
+    { "name": "ItemB", "price": 3.20 }
+  ]
+}
+
+### POST — unknown FK reference (expect 404)
+POST {{MyApp_HostAddress}}/api/samples/1/items
+Content-Type: application/json
+
+{
+  "id": 1002,
+  "date": "2025-05-05",
+  "items": [
+    { "name": "DoesNotExist", "price": 2.20 }
+  ]
+}
+
+###
